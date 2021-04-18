@@ -1,0 +1,12 @@
+import numpy as np
+n,m=map(int,input().split())
+a=[int(i) for i in input().strip().split()[:n*m]]
+num=np.array(a)
+
+num=num.reshape(n,m)
+print(np.amax(num,axis=1))
+print(np.amin(num,axis=0))
+
+b=min(n,m)
+tmp=sum(num[i][i] for i in range(b))
+print(tmp)
