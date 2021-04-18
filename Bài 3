@@ -1,0 +1,18 @@
+import numpy as np
+#mt A
+n,m=map(int,input().split())
+ar=[int(i) for i in input().strip().split()[:n*m]]
+a=np.array(ar)
+a=a.reshape(n,m)
+
+x,y=map(int,input().split())
+ar=[int(i) for i in input().strip().split()[:x*y]]
+b=np.array(ar)
+b=b.reshape(x,y)
+
+if n!=x:
+    print("none")
+else:
+    tich=np.matmul(a,b)
+    print(tich)
+
