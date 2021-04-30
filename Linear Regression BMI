@@ -1,0 +1,51 @@
+from __future__ import division, print_function, unicode_literals
+from sklearn import datasets, linear_model
+import numpy as np 
+import matplotlib.pyplot as plt
+
+
+
+# height (cm)
+he = np.array([[172, 144, 182, 169, 186, 160, 152]]).T
+# weight (kg)
+we = np.array([[65, 40, 77, 66, 80, 50, 42]]).T
+# Visualize data 
+BMI=np.array([[21.97, 19.29, 23.25, 23.11, 23.12, 19.53, 18.17]]).T
+
+zero=np.ones((he.shape[0],1))
+xbar= np.concatenate((zero, he,we), axis=1)
+# print(xbar)
+
+
+a=np.dot(xbar.T, xbar)
+# print(a)
+b=np.dot(xbar.T, BMI)
+# print(b)
+W=np.dot(np.linalg.pinv(a),b)   
+# print(W)
+print("w = ",W)
+print("\n")
+test=np.dot(xbar,W)
+print("BMI = ", test)
+
+ter=linear_model.LinearRegression(fit_intercept=False)
+ter.fit(xbar, BMI)
+print("Nghiem W: ",ter.coef_)
+print("\n")
+LR=np.dot(xbar,ter.coef_.T)
+print("Nghiem BMI du doan: ", LR.T)
+
+plt.subplot(1,2,1)
+plt.xlabel("Height (cm)")
+plt.ylabel("BMI")
+plt.plot(he,BMI,'go')
+plt.plot(he,test,'ro')
+plt.plot(he,LR,'y*')
+
+plt.subplot(1,2,2)
+plt.xlabel("Height (cm)")
+plt.ylabel("BMI")
+plt.plot(we,BMI,'go')
+plt.plot(we,test,'ro')
+plt.plot(we,LR,'y*')
+plt.show()
